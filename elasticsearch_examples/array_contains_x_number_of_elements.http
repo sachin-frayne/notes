@@ -1,0 +1,16 @@
+# array contains x number of elements
+
+GET <index>/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "script": {
+            "script": "doc['foo'].length == 1"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,24 +1,5 @@
 # elasticsearch
 
-## array contains x number of elements
-
-```bash
-GET <index>/_search
-{
-  "query": {
-    "bool": {
-      "must": [
-        {
-          "script": {
-            "script": "doc['foo'].length == 1"
-          }
-        }
-      ]
-    }
-  }
-}
-```
-
 ## cluster settings
 
 ### defaults
