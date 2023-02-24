@@ -1,5 +1,6 @@
 # index lifecycle management
 
+```bash
 ################################### clean up ###################################
 
 DELETE _data_stream/data-stream
@@ -9,6 +10,20 @@ PUT _cluster/settings
 {"transient":{"indices.lifecycle.poll_interval":null}}
 
 ################################################################################
+
+# create a pipeline that will add a timestamp to our data
+
+PUT _ingest/pipeline/ingest_timestamp
+{
+  "processors": [
+    {
+      "set": {
+        "field": "@timestamp",
+        "value": "{{_ingest.timestamp}}"
+      }
+    }
+  ]
+}
 
 # create an ilm policy
 
@@ -59,9 +74,10 @@ PUT index-000001
 
 # ingest a document into the index through the alias
 
-POST alias/_bulk
-{"index":{}}
-{"key":"value"}
+POST alias/_doc?pipeline=ingest_timestamp
+{
+  "foo":"bar"
+}
 
 # use the alias as if it were an index for append and search only, no updates or deletes
 
@@ -74,3 +90,4 @@ GET _cat/indices/index-*?v&h=index,docs.count
 # force the alias to rollover to see the new backing index getting created
 
 POST alias/_rollover
+```

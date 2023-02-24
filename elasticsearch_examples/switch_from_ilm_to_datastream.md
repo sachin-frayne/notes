@@ -1,4 +1,11 @@
-# Index lifecycle
+# switch from ilm to datastream with no downtime
+
+```bash
+################################### clean up ###################################
+
+DELETE index
+
+################################################################################
 
 PUT _ilm/policy/index_policy
 {
@@ -27,7 +34,7 @@ PUT _index_template/my_template
   }
 }
 
-PUT index_name-000105
+PUT index_name-000001
 {
   "aliases": {
     "index_name":{
@@ -113,3 +120,4 @@ POST _reindex?wait_for_completion=false
 }
 
 GET index_name*/_search
+```

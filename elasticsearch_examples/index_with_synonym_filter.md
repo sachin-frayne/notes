@@ -1,5 +1,6 @@
 # synonyms
 
+```bash
 ################################### clean up ###################################
 
 DELETE index
@@ -63,3 +64,4 @@ GET index/_validate/query?rewrite=true
     }
   }
 }
+```

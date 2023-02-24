@@ -1,5 +1,6 @@
 # data rollups
 
+```bash
 ################################### clean up ###################################
 
 DELETE _ingest/pipeline/ingest_timestamp
@@ -42,7 +43,7 @@ PUT index
   }
 }
 
-# index 2 documents into our data, run this request a few times a couple of seconds apart
+# index some documents into our data, run this request a few times several seconds apart
 
 POST index/_bulk?pipeline=ingest_timestamp
 {"index":{}}
@@ -79,11 +80,11 @@ PUT _rollup/job/rollup_job
   ]
 }
 
-# start the job
+# start the roll job
 
 POST _rollup/job/rollup_job/_start
 
-# perform an aggregation in the original index
+# run an aggregation in the original index
 
 GET index/_search
 {
@@ -111,7 +112,7 @@ GET index/_search
   }
 }
 
-# perform the same aggregation to the rolled_index, against the `_rollup_search` API the results will be the same
+# run the same aggregation to the rolled_index, against the `_rollup_search` API the results will be the same
 
 GET rolled_index/_rollup_search
 {
@@ -138,3 +139,4 @@ GET rolled_index/_rollup_search
     }
   }
 }
+```

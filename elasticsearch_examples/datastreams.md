@@ -1,14 +1,30 @@
-# data streams
+# datastreams
 
+```bash
 ################################### clean up ###################################
 
 DELETE _data_stream/data-stream
 DELETE _ilm/policy/data-stream-policy
 DELETE _index_template/data-stream-template
+DELETE _ingest/pipeline/ingest_timestamp
 PUT _cluster/settings
 {"transient":{"indices.lifecycle.poll_interval":null}}
 
 ################################################################################
+
+# create a pipeline that will add a timestamp to our data
+
+PUT _ingest/pipeline/ingest_timestamp
+{
+  "processors": [
+    {
+      "set": {
+        "field": "@timestamp",
+        "value": "{{_ingest.timestamp}}"
+      }
+    }
+  ]
+}
 
 # create an ilm policy
 
@@ -49,11 +65,11 @@ PUT _index_template/data-stream-template
   }
 }
 
-# ingest a document to initialise the data stream,
+# ingest a document to initialise the data stream
 
-POST /data-stream/_doc/
+POST data-stream/_doc?pipeline=ingest_timestamp
 {
-  "@timestamp": "2020-12-06T11:04:05.000Z"
+  "foo":"bar"
 }
 
 # use the data-stream as if it were an index for append and search only, no updates or deletes
@@ -67,3 +83,4 @@ GET _cat/indices/.ds-data-stream-*?v&h=index,docs.count
 # force the data stream to rollover to see the new backing index getting created
 
 POST data-stream/_rollover
+```
