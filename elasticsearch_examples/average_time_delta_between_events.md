@@ -1,12 +1,40 @@
-# average delta
+# average time delta between events
 
-```bash
-# calculate the average delta between documents ingested into your index
+```http
+################################### clean up ###################################
+
+DELETE index
+DELETE _ingest/pipeline/ingest_timestamp
+
+################################################################################
+
+# create a pipeline that will add a timestamp to our data
+
+PUT _ingest/pipeline/ingest_timestamp
+{
+  "processors": [
+    {
+      "set": {
+        "field": "@timestamp",
+        "value": "{{_ingest.timestamp}}"
+      }
+    }
+  ]
+}
+
+# run the following commands a few times several seconds apart
+
+POST index/_doc?pipeline=ingest_timestamp
+{
+  "foo":"bar"
+}
+
+# calculate the average time delta between events in a certain bucket interval
 ## this exact request will look over the last hour splitting it into minute buckets
 
-GET <index>/_search
+GET index/_search
 {
-  "size": 1,
+  "size": 0,
   "query": {
     "bool": {
       "filter": [

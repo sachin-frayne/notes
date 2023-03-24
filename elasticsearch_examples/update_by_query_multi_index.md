@@ -1,3 +1,13 @@
+# update by query multi index
+
+```http
+################################### clean up ###################################
+
+DELETE index-1
+DELETE index-2
+
+################################################################################
+
 PUT index-1/_doc/1
 {
   "field": "value",
@@ -57,6 +67,5 @@ POST index/_update_by_query
     }
   }
 }
-
 
 GET index/_search

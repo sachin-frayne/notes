@@ -1,10 +1,11 @@
 # index lifecycle management
 
-```bash
+```http
 ################################### clean up ###################################
 
-DELETE _data_stream/data-stream
-DELETE _ilm/policy/policy
+DELETE index-000001
+DELETE _ilm/policy/lifecycle-template
+DELETE _ingest/pipeline/ingest_timestamp
 DELETE _index_template/data-stream-template
 PUT _cluster/settings
 {"transient":{"indices.lifecycle.poll_interval":null}}
@@ -27,7 +28,7 @@ PUT _ingest/pipeline/ingest_timestamp
 
 # create an ilm policy
 
-PUT _ilm/policy/policy
+PUT _ilm/policy/lifecycle-template
 {
   "policy": {
     "phases": {
@@ -50,13 +51,13 @@ PUT _ilm/policy/policy
 
 # create the index template
 
-PUT _template/template
+PUT _index_template/lifecycle-template
 {
   "index_patterns": [
     "index-*"
   ],
   "settings": {
-    "index.lifecycle.name": "policy",
+    "index.lifecycle.name": "lifecycle-template",
     "index.lifecycle.rollover_alias": "alias"
   }
 }

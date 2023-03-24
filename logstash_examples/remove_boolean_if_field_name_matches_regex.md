@@ -1,4 +1,4 @@
-# find field with name regex and if field is boolean remove it
+# remove boolean if field name matches regex
 
 ```ruby
 input {

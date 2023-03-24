@@ -1,6 +1,6 @@
 # data rollups
 
-```bash
+```http
 ################################### clean up ###################################
 
 DELETE _ingest/pipeline/ingest_timestamp
