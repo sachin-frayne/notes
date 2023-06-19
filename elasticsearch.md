@@ -42,7 +42,8 @@ PUT _cluster/settings
 {
   "transient": {
     "cluster.routing.allocation.node_concurrent_recoveries": 2,
-    "indices.recovery.max_bytes_per_sec": "40mb"
+    "indices.recovery.max_bytes_per_sec": "40mb",
+    "cluster.routing.allocation.node_initial_primaries_recoveries": 4
   }
 }
 ```
