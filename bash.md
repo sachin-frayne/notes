@@ -14,6 +14,25 @@ if [ $? -ne 0 ]; then
 fi
 ```
 
+## heredoc
+
+### multi-line to file with var
+
+```bash
+VAR="baz"
+cat <<EOF | tee ${path_to_file}
+foo
+bar
+${VAR}
+EOF
+```
+
+## netstat
+
+```bash
+netstat -tulpn
+```
+
 ## read lines from a config file ignoring comments
 
 ```bash
@@ -26,17 +45,4 @@ grep -v "^\s*${comment_char}"
 
 ```bash
 sar -n TCP,ETCP 1
-```
-
-## heredoc
-
-### multi-line to file with var
-
-```bash
-VAR="baz"
-cat <<EOF | tee ${path_to_file}
-foo
-bar
-${VAR}
-EOF
 ```
