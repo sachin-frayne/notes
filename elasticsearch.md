@@ -1,5 +1,24 @@
 # elasticsearch
 
+## check if node is part of a cluster
+
+```bash
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+CLUSTER_HEALTH=$(curl -k -u "username:password" "ES_URL/_cluster/health?pretty")
+
+NUMBER_OF_NODES=$(echo ${CLUSTER_HEALTH} | jq -r '.number_of_nodes')
+
+if [[ $NUMBER_OF_NODES != null && $NUMBER_OF_NODES > 1 ]]
+then
+  exit 0
+else
+  exit 6
+fi
+```
+
 ## cluster settings
 
 ### defaults
