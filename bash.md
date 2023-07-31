@@ -7,11 +7,14 @@
 ## add a line to a file if it does not exist
 
 ```bash
-grep -q -F ${line_to_add} ${path_to_file}
+function write_line_to_file() {
+    if [[ ! -n "$(cat "$2" | grep "$1")" ]] 
+    then
+        echo "${1}" | tee -a "${2}" > /dev/null
+    fi
+}
 
-if [ $? -ne 0 ]; then
-  echo ${line_to_add} | tee -a ${path_to_file} > /dev/null
-fi
+write_line_to_file 'line to write' "/path/to/file"
 ```
 
 ## heredoc
