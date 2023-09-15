@@ -48,6 +48,17 @@ PUT _settings
 }
 ```
 
+## fields
+
+### get all the field names and their type information
+
+```eb
+GET _sql?format=txt
+{
+  "query": "SHOW COLUMNS IN <INDEX_NAME>"
+}
+```
+
 ## recovery
 
 ```eb
