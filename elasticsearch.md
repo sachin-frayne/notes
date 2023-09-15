@@ -33,6 +33,33 @@ GET _cluster/settings?include_defaults
 GET _cluster/settings?flat_settings
 ```
 
+## monitoring an endpoint for an intermittent issue
+
+### pending tasks
+
+* create file `pending_tasks.sh`
+
+```bash
+#!/usr/bin/env bash
+
+FILE_NAME=$(date | sed 's| |_|g')
+
+curl -XGET "https://<ELASTICSEARCH_URL>/_cat/pending_tasks" -u "elastic:<PASSWORD>" -k >$FILE_NAME.log
+```
+
+* run script every 10s
+
+```bash
+{ while true; do ./pending_tasks.sh; sleep 10; done; } &
+loop_pid=$!
+```
+
+* kill the task
+
+```bash
+kill $loop_pid
+```
+
 ## read_only_allow_delete
 
 ### default
