@@ -23,13 +23,13 @@ fi
 
 ### defaults
 
-```bash
+```eb
 GET _cluster/settings?include_defaults
 ```
 
 ### flat settings
 
-```bash
+```eb
 GET _cluster/settings?flat_settings
 ```
 
@@ -37,7 +37,7 @@ GET _cluster/settings?flat_settings
 
 ### default
 
-```bash
+```eb
 PUT _settings
 {
   "index": {
@@ -50,13 +50,13 @@ PUT _settings
 
 ## recovery
 
-```bash
+```eb
 GET _cat/recovery?v&h=i,s,t,ty,st,source_node,target_node,f,fp,b,bp,translog_ops_percent&s=ty:desc,index,bp:desc&active_only
 ```
 
 ### adjust recovery speed
 
-```bash
+```eb
 PUT _cluster/settings
 {
   "transient": {
@@ -71,12 +71,12 @@ PUT _cluster/settings
 
 ### get snapshots with start times, end times, ids, failed
 
-```bash
+```eb
 GET _snapshot/found-snapshots/_all?filter_path=snapshots.start_time,snapshots.end_time,snapshots.snapshot,snapshots.shards.failed
 ```
 
 ## index versions list
 
-```bash
+```eb
 GET _settings?filter_path=*.*.*.version.created_string&human
 ```
