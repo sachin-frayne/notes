@@ -7,7 +7,7 @@
 
 set -euo pipefail
 
-CLUSTER_HEALTH=$(curl -k -u "username:password" "ES_URL/_cluster/health?pretty")
+CLUSTER_HEALTH=$(curl -k -u "username:password" "ES_NODE_URL/_cluster/health?pretty")
 
 NUMBER_OF_NODES=$(echo ${CLUSTER_HEALTH} | jq -r '.number_of_nodes')
 
