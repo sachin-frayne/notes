@@ -1,5 +1,5 @@
 # notes
-a collection of code snippers, shortcuts, tips and tricks
+a collection of code snippets, shortcuts, tips and tricks
 
   * [bash](bash.md)
   * [docker](docker.md)
