@@ -3,18 +3,16 @@
 # TODO
 
 function write_to_readme () {
-    cat .notes.md > readme.md
+    cat .notes.md > README.md
 
     for F in *.md
     do
-        if [[  ! ${F} == "readme.md" ]]
+        if [[  ! ${F} == "README.md" ]]
         then
-        echo "  * [${F//.md}](${F})" >> readme.md
+        echo "  * [${F//.md}](${F})" >> README.md
         fi
     done
 }
 write_to_readme
-cd elasticsearch_examples
-write_to_readme
-cd ../logstash_examples
+cd logstash_examples
 write_to_readme

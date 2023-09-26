@@ -1,14 +1,10 @@
 # bash
 
-### description
-
-
-
 ## add a line to a file if it does not exist
 
 ```bash
 function write_line_to_file() {
-    if [[ ! -n "$(cat "$2" | grep "$1")" ]] 
+    if [[ ! -n "$(cat "$2" | grep "$1")" ]]
     then
         echo "${1}" | tee -a "${2}" > /dev/null
     fi
@@ -28,6 +24,18 @@ foo
 bar
 ${VAR}
 EOF
+```
+
+## looping
+
+### while
+
+```bash
+input="/path/to/file"
+
+while IFS= read -r line; do
+  echo "${line}"
+done <"${input}"
 ```
 
 ## netstat
