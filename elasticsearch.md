@@ -37,7 +37,7 @@ GET _cluster/settings?flat_settings
 
 ### pending tasks
 
-* create file `pending_tasks.sh`
+- create file `pending_tasks.sh`
 
 ```bash
 #!/usr/bin/env bash
@@ -47,14 +47,14 @@ FILE_NAME=$(date | sed 's| |_|g')
 curl -XGET "https://<ELASTICSEARCH_URL>/_cat/pending_tasks" -u "elastic:<PASSWORD>" -k >$FILE_NAME.log
 ```
 
-* run script every 10s
+- run script every 10s
 
 ```bash
 { while true; do ./pending_tasks.sh; sleep 10; done; } &
 loop_pid=$!
 ```
 
-* kill the task
+- kill the task
 
 ```bash
 kill $loop_pid
@@ -117,4 +117,10 @@ GET _snapshot/found-snapshots/_all?filter_path=snapshots.start_time,snapshots.en
 
 ```eb
 GET _settings?filter_path=*.*.*.version.created_string&human
+```
+
+## detailed tasks
+
+```eb
+GET _cat/tasks?v&s=node:asc,running_time:desc&detailed
 ```
